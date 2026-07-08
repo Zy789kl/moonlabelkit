@@ -7,5 +7,5 @@ keywords = ["dataset", "label-quality", "kappa", "consistency", "data-governance
 description = "标注数据一致性检查与质量治理工具箱 (MoonLabelKit: Annotation Data Consistency Checking & Quality Governance Toolkit)"
 
 options(
-  "preferred-target": "native"
+  "preferred-target": "wasm-gc"
 )
