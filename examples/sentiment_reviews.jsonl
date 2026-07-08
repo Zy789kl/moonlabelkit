@@ -1,0 +1,10 @@
+{"id": "rev_101", "text": "This phone has an incredible OLED display and battery life is stellar.", "label": "Positive", "annotator": "Alice", "split": "train"}
+{"id": "rev_101", "text": "This phone has an incredible OLED display and battery life is stellar.", "label": "Positive", "annotator": "Bob", "split": "train"}
+{"id": "rev_101", "text": "This phone has an incredible OLED display and battery life is stellar.", "label": "Positive", "annotator": "Charlie", "split": "train"}
+{"id": "rev_102", "text": "Software updates broke WiFi connectivity, extremely frustrated.", "label": "Negative", "annotator": "Alice", "split": "train"}
+{"id": "rev_102", "text": "Software updates broke WiFi connectivity, extremely frustrated.", "label": "Negative", "annotator": "Bob", "split": "train"}
+{"id": "rev_102", "text": "Software updates broke WiFi connectivity, extremely frustrated.", "label": "Neutral", "annotator": "Charlie", "split": "train"}
+{"id": "rev_103", "text": "Standard build quality, nothing too special about the camera module.", "label": "Neutral", "annotator": "Alice", "split": "dev"}
+{"id": "rev_103", "text": "Standard build quality, nothing too special about the camera module.", "label": "Neutral", "annotator": "Bob", "split": "dev"}
+{"id": "rev_104", "text": "Bad service.", "label": "Negative", "annotator": "Charlie", "split": "test"}
+{"id": "rev_105", "text": "Superb product value!", "label": "Positive", "annotator": "Alice", "split": "test"}
