@@ -75,6 +75,20 @@ pub fn Dataset::add_sample(self : Dataset, sample : Sample) -> Unit {
 }
 
 ///|
+/// 往数据集中添加样本，如果ID已存在则合并标注记录（适用于多标注人员独立提交的记录）
+pub fn Dataset::add_sample_or_merge(self : Dataset, sample : Sample) -> Unit {
+  for existing in self.samples {
+    if existing.id == sample.id {
+      for ann in sample.annotations {
+        existing.annotations.push(ann)
+      }
+      return
+    }
+  }
+  self.samples.push(sample)
+}
+
+///|
 /// 构造基础单标注样本
 pub fn Sample::create_simple(
   id : String,

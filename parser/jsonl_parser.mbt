@@ -183,15 +183,15 @@ pub fn parse_jsonl_dataset(
       match task_type {
         Classification => {
           let sample = parse_classification_json_line(line_str, line_no)
-          ds.add_sample(sample)
+          ds.add_sample_or_merge(sample)
         }
         SequenceLabeling => {
           let sample = parse_sequence_json_line(line_str, line_no)
-          ds.add_sample(sample)
+          ds.add_sample_or_merge(sample)
         }
         _ => {
           let sample = parse_classification_json_line(line_str, line_no)
-          ds.add_sample(sample)
+          ds.add_sample_or_merge(sample)
         }
       }
     }

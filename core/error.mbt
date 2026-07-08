@@ -8,6 +8,16 @@ pub(all) suberror GovernanceError {
 } derive(Eq, Debug)
 
 ///|
+pub impl Show for GovernanceError with output(self, logger) {
+  match self {
+    SchemaMismatch(msg) => logger.write_string("SchemaMismatch: " + msg)
+    InvalidAnnotation(msg) => logger.write_string("InvalidAnnotation: " + msg)
+    ParserError(msg, line) => logger.write_string("ParserError: " + msg + " (Line " + line.to_string() + ")")
+    ComputationError(msg) => logger.write_string("ComputationError: " + msg)
+  }
+}
+
+///|
 /// 抛出Schema校验不通过异常
 pub fn raise_schema_error(msg : String) -> Unit raise GovernanceError {
   raise GovernanceError::SchemaMismatch(msg)
