@@ -1,6 +1,7 @@
 # 🌌 MoonLabelKit: 标注数据一致性检查与质量治理引擎
 
 [![MoonBit Version](https://img.shields.io/badge/MoonBit-v0.1.0-8A2BE2.svg)](https://www.moonbitlang.com/)
+[![CI](https://github.com/Zy789kl/moonlabelkit/actions/workflows/test.yml/badge.svg)](https://github.com/Zy789kl/moonlabelkit/actions/workflows/test.yml)
 [![Target](https://img.shields.io/badge/Target-Wasm--GC%20%7C%20Native-blue.svg)]()
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-13%20Passed-success.svg)]()
@@ -200,6 +201,18 @@ moon run cmd
 - `feat(agreement)`: Cohen's Kappa / Fleiss' Kappa 一致性矩阵
 - `feat(quality)`: 重复样本、歧义项与异常标签巡检
 - `feat(cmd)`: 综合质量治理报告输出与 CLI 引擎
+
+### 5.5 仓库自检与 CI
+仓库已补齐 GitHub Actions 持续集成，工作流位于 [`.github/workflows/test.yml`](.github/workflows/test.yml)。
+
+本地和 CI 统一执行以下检查：
+- `moon check --deny-warn`
+- `moon info --target all`
+- `moon fmt` 后检查 `git diff --exit-code`
+- `moon test --target all,native`
+- `moon test --target all,native --release`
+
+当前流程对齐 MoonBit 0.10.3 工具链，方便在最新稳定版环境下稳定复现。
 
 ---
 *Created for MoonBit OSC 2026 Open Source Competition.*

@@ -9,7 +9,9 @@ pub(all) struct DuplicateGroup {
 
 ///|
 /// 检测数据集内的重复文本样本及其标签冲突状态
-pub fn detect_duplicate_samples(dataset : @core.Dataset) -> Array[DuplicateGroup] {
+pub fn detect_duplicate_samples(
+  dataset : @core.Dataset,
+) -> Array[DuplicateGroup] {
   // 文本归一化为小写并去首尾空格
   let text_to_samples : Map[String, Array[@core.Sample]] = {}
 

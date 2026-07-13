@@ -33,12 +33,12 @@ pub fn interpret_kappa(score : Double) -> String {
 pub fn compute_cohen_kappa(
   dataset : @core.Dataset,
   annotator_a : String,
-  annotator_b : String
+  annotator_b : String,
 ) -> CohenKappaResult raise @core.GovernanceError {
   let categories = dataset.schema_labels
   if categories.length() < 2 {
     raise @core.GovernanceError::ComputationError(
-      "Cohen's Kappa requires at least 2 categories defined in schema"
+      "Cohen's Kappa requires at least 2 categories defined in schema",
     )
   }
 
@@ -113,7 +113,7 @@ pub fn compute_cohen_kappa(
       row_sum += matrix[i * k + j]
       col_sum += matrix[j * k + i]
     }
-    p_e += (row_sum.to_double() * col_sum.to_double()) / (n_f * n_f)
+    p_e += row_sum.to_double() * col_sum.to_double() / (n_f * n_f)
   }
 
   let kappa = if (1.0 - p_e).abs() < 0.000000001 {

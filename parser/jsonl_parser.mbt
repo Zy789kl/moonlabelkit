@@ -13,16 +13,15 @@ fn extract_json_string(map : Map[String, Json], key : String) -> String? {
 pub fn parse_classification_json_line(
   line : String,
   line_no : Int,
-  default_split~ : String = "train"
+  default_split? : String = "train",
 ) -> @core.Sample raise @core.GovernanceError {
   let trimmed : String = line[:].trim().to_owned()
   if trimmed == "" {
     raise @core.GovernanceError::ParserError("Empty line", line_no)
   }
-  let json = try {
-    @json.parse(trimmed[:])
-  } catch {
-    _ => raise @core.GovernanceError::ParserError("Invalid JSON format", line_no)
+  let json = @json.parse(trimmed[:]) catch {
+    _ =>
+      raise @core.GovernanceError::ParserError("Invalid JSON format", line_no)
   }
   match json {
     Object(map) => {
@@ -35,7 +34,10 @@ pub fn parse_classification_json_line(
         None =>
           match extract_json_string(map, "content") {
             Some(c) => c
-            None => raise @core.GovernanceError::ParserError("Missing text/content field", line_no)
+            None =>
+              raise @core.GovernanceError::ParserError(
+                "Missing text/content field", line_no,
+              )
           }
       }
       let annotator = match extract_json_string(map, "annotator") {
@@ -70,7 +72,10 @@ pub fn parse_classification_json_line(
               }
               Multi(out)
             }
-            _ => raise @core.GovernanceError::ParserError("Missing label or labels field", line_no)
+            _ =>
+              raise @core.GovernanceError::ParserError(
+                "Missing label or labels field", line_no,
+              )
           }
       }
       let ann : @core.Annotation = {
@@ -81,7 +86,10 @@ pub fn parse_classification_json_line(
       }
       { id, text, metadata: {}, annotations: [ann], split }
     }
-    _ => raise @core.GovernanceError::ParserError("JSON record must be an object", line_no)
+    _ =>
+      raise @core.GovernanceError::ParserError(
+        "JSON record must be an object", line_no,
+      )
   }
 }
 
@@ -90,16 +98,15 @@ pub fn parse_classification_json_line(
 pub fn parse_sequence_json_line(
   line : String,
   line_no : Int,
-  default_split~ : String = "train"
+  default_split? : String = "train",
 ) -> @core.Sample raise @core.GovernanceError {
   let trimmed : String = line[:].trim().to_owned()
   if trimmed == "" {
     raise @core.GovernanceError::ParserError("Empty line", line_no)
   }
-  let json = try {
-    @json.parse(trimmed[:])
-  } catch {
-    _ => raise @core.GovernanceError::ParserError("Invalid JSON format", line_no)
+  let json = @json.parse(trimmed[:]) catch {
+    _ =>
+      raise @core.GovernanceError::ParserError("Invalid JSON format", line_no)
   }
   match json {
     Object(map) => {
@@ -109,7 +116,10 @@ pub fn parse_sequence_json_line(
       }
       let text = match extract_json_string(map, "text") {
         Some(s) => s
-        None => raise @core.GovernanceError::ParserError("Missing text field", line_no)
+        None =>
+          raise @core.GovernanceError::ParserError(
+            "Missing text field", line_no,
+          )
       }
       let annotator = match extract_json_string(map, "annotator") {
         Some(a) => a
@@ -146,13 +156,21 @@ pub fn parse_sequence_json_line(
                       ""
                     }
                 }
-                let span : @core.EntitySpan = { start, end, label, text: span_text }
+                let span : @core.EntitySpan = {
+                  start,
+                  end,
+                  label,
+                  text: span_text,
+                }
                 spans.push(span)
               }
               _ => ()
             }
           }
-        _ => raise @core.GovernanceError::ParserError("Missing spans array field", line_no)
+        _ =>
+          raise @core.GovernanceError::ParserError(
+            "Missing spans array field", line_no,
+          )
       }
       let ann : @core.Annotation = {
         annotator_id: annotator,
@@ -162,7 +180,10 @@ pub fn parse_sequence_json_line(
       }
       { id, text, metadata: {}, annotations: [ann], split }
     }
-    _ => raise @core.GovernanceError::ParserError("JSON record must be an object", line_no)
+    _ =>
+      raise @core.GovernanceError::ParserError(
+        "JSON record must be an object", line_no,
+      )
   }
 }
 
@@ -172,7 +193,7 @@ pub fn parse_jsonl_dataset(
   content : String,
   dataset_name : String,
   task_type : @core.TaskType,
-  schema_labels : Array[String]
+  schema_labels : Array[String],
 ) -> @core.Dataset raise @core.GovernanceError {
   let ds = @core.Dataset::new(dataset_name, task_type, schema_labels)
   let lines = content.split("\n")

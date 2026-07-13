@@ -4,9 +4,13 @@ pub fn parse_tabular_dataset(
   content : String,
   dataset_name : String,
   schema_labels : Array[String],
-  delimiter~ : Char = ','
+  delimiter? : Char = ',',
 ) -> @core.Dataset raise @core.GovernanceError {
-  let ds = @core.Dataset::new(dataset_name, @core.TaskType::Tabular, schema_labels)
+  let ds = @core.Dataset::new(
+    dataset_name,
+    @core.TaskType::Tabular,
+    schema_labels,
+  )
   let lines = content.split("\n")
   let mut is_header = true
   let mut header_cols = []
@@ -27,9 +31,13 @@ pub fn parse_tabular_dataset(
         header_cols = cols
         let mut idx = 0
         for col_name in header_cols {
-          if col_name == "text" || col_name == "content" || col_name == "sentence" {
+          if col_name == "text" ||
+            col_name == "content" ||
+            col_name == "sentence" {
             text_col_idx = idx
-          } else if col_name == "label" || col_name == "category" || col_name == "target" {
+          } else if col_name == "label" ||
+            col_name == "category" ||
+            col_name == "target" {
             label_col_idx = idx
           } else if col_name == "id" {
             id_col_idx = idx
@@ -38,14 +46,14 @@ pub fn parse_tabular_dataset(
         }
         if text_col_idx == -1 || label_col_idx == -1 {
           raise @core.GovernanceError::SchemaMismatch(
-            "CSV header missing required 'text' or 'label' column at line \{line_no}"
+            "CSV header missing required 'text' or 'label' column at line \{line_no}",
           )
         }
         is_header = false
       } else {
         if cols.length() <= text_col_idx || cols.length() <= label_col_idx {
           raise @core.GovernanceError::ParserError(
-            "Column count mismatch", line_no
+            "Column count mismatch", line_no,
           )
         }
         let id = if id_col_idx >= 0 && id_col_idx < cols.length() {

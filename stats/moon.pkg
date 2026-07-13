@@ -1,4 +1,4 @@
 import {
   "data-governance/moonlabelkit/core",
-  "moonbitlang/core/math" @math,
+  "moonbitlang/core/math",
 }

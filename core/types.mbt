@@ -58,14 +58,9 @@ pub(all) struct Dataset {
 pub fn Dataset::new(
   name : String,
   task_type : TaskType,
-  schema_labels : Array[String]
+  schema_labels : Array[String],
 ) -> Dataset {
-  {
-    name,
-    task_type,
-    samples: [],
-    schema_labels,
-  }
+  { name, task_type, samples: [], schema_labels }
 }
 
 ///|
@@ -94,8 +89,8 @@ pub fn Sample::create_simple(
   id : String,
   text : String,
   label : String,
-  annotator~ : String = "default",
-  split~ : String = "train"
+  annotator? : String = "default",
+  split? : String = "train",
 ) -> Sample {
   let ann : Annotation = {
     annotator_id: annotator,
@@ -103,13 +98,7 @@ pub fn Sample::create_simple(
     timestamp: 0L,
     confidence: None,
   }
-  {
-    id,
-    text,
-    metadata: {},
-    annotations: [ann],
-    split,
-  }
+  { id, text, metadata: {}, annotations: [ann], split }
 }
 
 ///|
@@ -118,8 +107,8 @@ pub fn Sample::create_sequence(
   id : String,
   text : String,
   spans : Array[EntitySpan],
-  annotator~ : String = "default",
-  split~ : String = "train"
+  annotator? : String = "default",
+  split? : String = "train",
 ) -> Sample {
   let ann : Annotation = {
     annotator_id: annotator,
@@ -127,13 +116,7 @@ pub fn Sample::create_sequence(
     timestamp: 0L,
     confidence: None,
   }
-  {
-    id,
-    text,
-    metadata: {},
-    annotations: [ann],
-    split,
-  }
+  { id, text, metadata: {}, annotations: [ann], split }
 }
 
 ///|
@@ -176,7 +159,10 @@ pub fn Sample::extract_category_labels(self : Sample) -> Array[String] {
 
 ///|
 /// 按照数据集切分类型（如 "train", "dev", "test"）过滤返回子数据集
-pub fn Dataset::filter_by_split(self : Dataset, target_split : String) -> Dataset {
+pub fn Dataset::filter_by_split(
+  self : Dataset,
+  target_split : String,
+) -> Dataset {
   let filtered_samples = []
   for s in self.samples {
     if s.split == target_split {

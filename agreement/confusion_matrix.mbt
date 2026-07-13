@@ -11,7 +11,7 @@ pub(all) struct PairwiseAgreementSummary {
 ///|
 /// 获取数据集中所有标注者两两配对的一致性评估汇总矩阵
 pub fn compute_pairwise_agreement_matrix(
-  dataset : @core.Dataset
+  dataset : @core.Dataset,
 ) -> Array[PairwiseAgreementSummary] {
   let annotators = dataset.get_all_annotators()
   let results = []
@@ -21,11 +21,7 @@ pub fn compute_pairwise_agreement_matrix(
     for j = i + 1; j < n; j = j + 1 {
       let a = annotators[i]
       let b = annotators[j]
-      let res = try {
-        compute_cohen_kappa(dataset, a, b)
-      } catch {
-        _ => continue
-      }
+      let res = compute_cohen_kappa(dataset, a, b) catch { _ => continue }
       results.push({
         annotator_a: a,
         annotator_b: b,

@@ -11,11 +11,13 @@ pub(all) struct FleissKappaResult {
 
 ///|
 /// 计算数据集内多位标注者之间的 Fleiss' Kappa 一致性系数
-pub fn compute_fleiss_kappa(dataset : @core.Dataset) -> FleissKappaResult raise @core.GovernanceError {
+pub fn compute_fleiss_kappa(
+  dataset : @core.Dataset,
+) -> FleissKappaResult raise @core.GovernanceError {
   let categories = dataset.schema_labels
   if categories.length() < 2 {
     raise @core.GovernanceError::ComputationError(
-      "Fleiss' Kappa requires at least 2 categories defined in schema"
+      "Fleiss' Kappa requires at least 2 categories defined in schema",
     )
   }
 
@@ -58,7 +60,8 @@ pub fn compute_fleiss_kappa(dataset : @core.Dataset) -> FleissKappaResult raise 
         pair_matches += cnt * (cnt - 1)
         cat_totals[j] = cat_totals[j] + cnt
       }
-      let p_i = pair_matches.to_double() / (n_i.to_double() * (n_i.to_double() - 1.0))
+      let p_i = pair_matches.to_double() /
+        (n_i.to_double() * (n_i.to_double() - 1.0))
       sum_p_i += p_i
     }
   }

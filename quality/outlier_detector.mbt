@@ -11,8 +11,8 @@ pub(all) struct OutlierReport {
 /// 检测数据集内超出限定 Schema 的非法类别和极端文本长度异常
 pub fn detect_schema_and_length_outliers(
   dataset : @core.Dataset,
-  min_length~ : Int = 2,
-  max_length~ : Int = 10000
+  min_length? : Int = 2,
+  max_length? : Int = 10000,
 ) -> Array[OutlierReport] {
   let valid_set : Map[String, Bool] = {}
   for lbl in dataset.schema_labels {

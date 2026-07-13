@@ -75,6 +75,9 @@ pub fn compute_label_distribution(dataset : @core.Dataset) -> LabelDistribution 
 
 ///|
 /// 检查数据集是否存在严重的类别极端不平衡（比例超过阈值如 10.0）
-pub fn is_severely_imbalanced(dist : LabelDistribution, threshold~ : Double = 10.0) -> Bool {
+pub fn is_severely_imbalanced(
+  dist : LabelDistribution,
+  threshold? : Double = 10.0,
+) -> Bool {
   dist.max_min_ratio >= threshold && dist.frequency.length() > 1
 }

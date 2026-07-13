@@ -17,14 +17,12 @@ fn main {
     #|{"id": "rev_005", "text": "Invalid product tag here.", "label": "SuperGood", "annotator": "Bob", "split": "train"}
     #|{"id": "rev_006_dup", "text": "OK phone for the price, decent screen.", "label": "Positive", "annotator": "Charlie", "split": "train"}
 
-  let dataset = try {
-    @parser.parse_jsonl_dataset(
-      jsonl_sample,
-      "Mobile_Phone_Reviews_MultiAnn_v1",
-      @core.TaskType::Classification,
-      ["Positive", "Negative", "Neutral"]
-    )
-  } catch {
+  let dataset = @parser.parse_jsonl_dataset(
+    jsonl_sample,
+    "Mobile_Phone_Reviews_MultiAnn_v1",
+    @core.TaskType::Classification,
+    ["Positive", "Negative", "Neutral"],
+  ) catch {
     err => {
       println("Error parsing dataset: \{err}")
       return

@@ -10,7 +10,9 @@ pub(all) struct LabelConflictItem {
 
 ///|
 /// 检测多标注数据集中样本自身的标签冲突与歧义情况
-pub fn detect_label_conflicts(dataset : @core.Dataset) -> Array[LabelConflictItem] {
+pub fn detect_label_conflicts(
+  dataset : @core.Dataset,
+) -> Array[LabelConflictItem] {
   let conflicts = []
 
   for sample in dataset.samples {
@@ -45,7 +47,8 @@ pub fn detect_label_conflicts(dataset : @core.Dataset) -> Array[LabelConflictIte
 
       let distinct_cnt = distinct_set.length()
       if distinct_cnt > 1 {
-        let severity = if distinct_cnt >= sample.annotations.length() && distinct_cnt > 2 {
+        let severity = if distinct_cnt >= sample.annotations.length() &&
+          distinct_cnt > 2 {
           "High (Severe Divergence)"
         } else if distinct_cnt == 2 {
           "Moderate (Binary Disagreement)"

@@ -4,13 +4,25 @@ test "dataset creation and sample extraction" {
     "Positive", "Negative", "Neutral",
   ])
   let s1 = Sample::create_simple(
-    "doc_001", "This product is amazing and fast!", "Positive", annotator="alice", split="train",
+    "doc_001",
+    "This product is amazing and fast!",
+    "Positive",
+    annotator="alice",
+    split="train",
   )
   let s2 = Sample::create_simple(
-    "doc_002", "Terrible support service.", "Negative", annotator="bob", split="dev",
+    "doc_002",
+    "Terrible support service.",
+    "Negative",
+    annotator="bob",
+    split="dev",
   )
   let s3 = Sample::create_simple(
-    "doc_003", "It works OK.", "Neutral", annotator="alice", split="train",
+    "doc_003",
+    "It works OK.",
+    "Neutral",
+    annotator="alice",
+    split="train",
   )
   ds.add_sample(s1)
   ds.add_sample(s2)
@@ -25,9 +37,21 @@ test "dataset creation and sample extraction" {
 ///|
 test "sequence labeling sample creation" {
   let span1 : EntitySpan = { start: 0, end: 5, label: "ORG", text: "Apple" }
-  let span2 : EntitySpan = { start: 16, end: 24, label: "LOC", text: "New York" }
+  let span2 : EntitySpan = {
+    start: 16,
+    end: 24,
+    label: "LOC",
+    text: "New York",
+  }
   let seq_sample = Sample::create_sequence(
-    "ner_001", "Apple opened in New York.", [span1, span2], annotator="expert_1", split="test",
+    "ner_001",
+    "Apple opened in New York.",
+    [span1, span2],
+    annotator="expert_1",
+    split="test",
   )
-  debug_inspect(seq_sample.extract_category_labels(), content="[\"ORG\", \"LOC\"]")
+  debug_inspect(
+    seq_sample.extract_category_labels(),
+    content="[\"ORG\", \"LOC\"]",
+  )
 }
