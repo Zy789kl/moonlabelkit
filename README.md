@@ -35,12 +35,12 @@
 
 | 包路径 (Package Path) | 核心职责 (Description) | 文件明细 | 纯代码行数 |
 | :--- | :--- | :--- | :---: |
-| `data-governance/moonlabelkit/core` | 领域数据模型定义与统一异常系统 `GovernanceError` | `types.mbt`, `error.mbt`, `core_test.mbt` | 271 |
-| `data-governance/moonlabelkit/parser` | JSONL 与 CSV/TSV 结构化解析器及 Schema 校验 | `jsonl_parser.mbt`, `csv_parser.mbt`, `parser_test.mbt` | 306 |
-| `data-governance/moonlabelkit/stats` | 标签频率分布、香农熵、基尼不平衡系数与序列密度统计 | `distribution.mbt`, `sequence_stats.mbt`, `stats_test.mbt` | 175 |
-| `data-governance/moonlabelkit/agreement` | Cohen's Kappa（两两一致性）与 Fleiss' Kappa（多标注者一致性） | `cohen_kappa.mbt`, `fleiss_kappa.mbt`, `confusion_matrix.mbt`, `agreement_test.mbt` | 332 |
-| `data-governance/moonlabelkit/quality` | 重复冲突巡检、样本内多标注分歧检测与 Schema 越界巡检 | `duplicate_detector.mbt`, `conflict_detector.mbt`, `outlier_detector.mbt`, `quality_test.mbt` | 223 |
-| `data-governance/moonlabelkit/cmd` | 可执行主程序入口 `main` 与综合治理报告生成引擎 `report_generator` | `main.mbt`, `report_generator.mbt` | 211 |
+| `Zy789kl/moonlabelkit/core` | 领域数据模型定义与统一异常系统 `GovernanceError` | `types.mbt`, `error.mbt`, `core_test.mbt` | 271 |
+| `Zy789kl/moonlabelkit/parser` | JSONL 与 CSV/TSV 结构化解析器及 Schema 校验 | `jsonl_parser.mbt`, `csv_parser.mbt`, `parser_test.mbt` | 306 |
+| `Zy789kl/moonlabelkit/stats` | 标签频率分布、香农熵、基尼不平衡系数与序列密度统计 | `distribution.mbt`, `sequence_stats.mbt`, `stats_test.mbt` | 175 |
+| `Zy789kl/moonlabelkit/agreement` | Cohen's Kappa（两两一致性）与 Fleiss' Kappa（多标注者一致性） | `cohen_kappa.mbt`, `fleiss_kappa.mbt`, `confusion_matrix.mbt`, `agreement_test.mbt` | 332 |
+| `Zy789kl/moonlabelkit/quality` | 重复冲突巡检、样本内多标注分歧检测与 Schema 越界巡检 | `duplicate_detector.mbt`, `conflict_detector.mbt`, `outlier_detector.mbt`, `quality_test.mbt` | 223 |
+| `Zy789kl/moonlabelkit/cmd` | 可执行主程序入口 `main` 与综合治理报告生成引擎 `report_generator` | `main.mbt`, `report_generator.mbt` | 211 |
 | **合计 (Total)** | **全量代码、测试与工程逻辑** | **19 个 `.mbt` 源文件** | **1,518 行** |
 
 ---

@@ -1,4 +1,4 @@
-name = "data-governance/moonlabelkit"
+name = "Zy789kl/moonlabelkit"
 
 version = "0.1.0"
 
@@ -8,13 +8,7 @@ repository = "https://github.com/Zy789kl/moonlabelkit"
 
 license = "Apache-2.0"
 
-keywords = [
-  "dataset",
-  "label-quality",
-  "kappa",
-  "consistency",
-  "data-governance",
-]
+keywords = [ "dataset", "label-quality", "kappa", "consistency", "Zy789kl" ]
 
 description = "标注数据一致性检查与质量治理工具箱 (MoonLabelKit: Annotation Data Consistency Checking & Quality Governance Toolkit)"
 

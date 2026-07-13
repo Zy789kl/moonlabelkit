@@ -1,9 +1,9 @@
 import {
-  "data-governance/moonlabelkit/core",
-  "data-governance/moonlabelkit/parser",
-  "data-governance/moonlabelkit/stats",
-  "data-governance/moonlabelkit/agreement",
-  "data-governance/moonlabelkit/quality",
+  "Zy789kl/moonlabelkit/core",
+  "Zy789kl/moonlabelkit/parser",
+  "Zy789kl/moonlabelkit/stats",
+  "Zy789kl/moonlabelkit/agreement",
+  "Zy789kl/moonlabelkit/quality",
 }
 
 options(
