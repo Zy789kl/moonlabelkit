@@ -86,3 +86,28 @@ test "fleiss kappa multi-annotator" {
   inspect(fleiss.sample_count, content="1")
   inspect(fleiss.kappa_score > 0.999, content="true")
 }
+
+///|
+test "krippendorff alpha multi-annotator" {
+  let ds = @core.Dataset::new("test_alpha", @core.TaskType::Classification, [
+    "A", "B", "C",
+  ])
+  let s1 = @core.Sample::create_simple("1", "t1", "A", annotator="ann1")
+  s1.annotations.push({
+    annotator_id: "ann2",
+    label: Single("A"),
+    timestamp: 0L,
+    confidence: None,
+  })
+  s1.annotations.push({
+    annotator_id: "ann3",
+    label: Single("A"),
+    timestamp: 0L,
+    confidence: None,
+  })
+  ds.add_sample(s1)
+
+  let alpha_res = compute_krippendorff_alpha(ds)
+  inspect(alpha_res.sample_count, content="1")
+  inspect(alpha_res.alpha_score > 0.999, content="true")
+}

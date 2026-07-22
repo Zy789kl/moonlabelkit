@@ -1,0 +1,6 @@
+import {
+  "Zy789kl/moonlabelkit/core",
+  "Zy789kl/moonlabelkit/agreement",
+  "Zy789kl/moonlabelkit/stats",
+  "Zy789kl/moonlabelkit/quality",
+}
