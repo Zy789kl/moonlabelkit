@@ -5,3 +5,6 @@ _build/
 .DS_Store
 *.exe
 *.wasm
+.env
+.env.*
+*.log

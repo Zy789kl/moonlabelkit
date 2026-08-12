@@ -62,16 +62,18 @@ jobs:
           moon install
 
       - name: Moon format check
-        run: moon fmt --deny-warn
+        run: |
+          moon fmt
+          git diff --exit-code
 
       - name: Moon info check
-        run: moon info --deny-warn
+        run: moon info
 
       - name: Moon check
         run: moon check --deny-warn
 
       - name: Moon test
-        run: moon test --target all,native
+        run: moon test --target all,native --deny-warn
 
       - name: Moon test release
-        run: moon test --target all,native --release
+        run: moon test --target all,native --release --deny-warn
