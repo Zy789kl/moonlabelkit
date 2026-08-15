@@ -25,14 +25,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gcc libssl-dev
-          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash -s 0.1.20260703
           echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
 
       - name: Setup MoonBit toolchain (macOS)
         if: runner.os == 'macOS'
         run: |
           brew install gcc openssl
-          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash -s 0.1.20260703
           echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
 
       - name: Setup MoonBit toolchain (Windows)
@@ -40,6 +40,7 @@ jobs:
         shell: pwsh
         run: |
           Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+          $env:MOONBIT_INSTALL_VERSION = "0.1.20260703"
           irm https://cli.moonbitlang.com/install/powershell.ps1 | iex
           echo "$HOME/.moon/bin" | Out-File -FilePath $env:GITHUB_PATH -Append
 
