@@ -62,11 +62,7 @@ jobs:
           moon install
 
       - name: Moon format check
-        run: |
-          moon fmt
-          # Windows checkouts may normalize line endings after formatting. Ignore
-          # end-of-line-only changes while still failing on real formatting drift.
-          git diff --ignore-space-at-eol --exit-code
+        run: moon fmt --check
 
       - name: Moon info check
         run: moon info
