@@ -14,7 +14,7 @@ pub fn compute_sequence_stats(dataset : @core.Dataset) -> SequenceStats {
   let mut total_spans = 0
   let mut total_length = 0
   let mut max_len = 0
-  let counts : Map[String, Int] = {}
+  let counts : Map[String, Int] = Map([])
 
   for sample in dataset.samples {
     for ann in sample.annotations {

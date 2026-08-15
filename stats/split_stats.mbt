@@ -15,7 +15,7 @@ pub fn compute_split_stats(
   dataset : @core.Dataset,
   split : String,
 ) -> SplitStats {
-  let seen : Map[String, Bool] = {}
+  let seen : Map[String, Bool] = Map([])
   let mut samples = 0
   let mut annotations = 0
   let mut empty = 0
@@ -54,7 +54,7 @@ pub fn cross_split_duplicate_rate(
   left : String,
   right : String,
 ) -> Double {
-  let right_texts : Map[String, Bool] = {}
+  let right_texts : Map[String, Bool] = Map([])
   for sample in dataset.samples {
     if sample.split == right {
       right_texts[sample.text[:].trim().to_owned()] = true

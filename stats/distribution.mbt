@@ -12,7 +12,7 @@ pub(all) struct LabelDistribution {
 ///|
 /// 针对整个数据集计算详细的类别分布统计与信息熵指数
 pub fn compute_label_distribution(dataset : @core.Dataset) -> LabelDistribution {
-  let freq : Map[String, Int] = {}
+  let freq : Map[String, Int] = Map([])
   let mut total = 0
 
   for sample in dataset.samples {
@@ -27,7 +27,7 @@ pub fn compute_label_distribution(dataset : @core.Dataset) -> LabelDistribution 
     }
   }
 
-  let props : Map[String, Double] = {}
+  let props : Map[String, Double] = Map([])
   let mut entropy = 0.0
   let mut max_cnt = 0
   let mut min_cnt = -1

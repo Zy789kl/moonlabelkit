@@ -22,7 +22,7 @@ pub fn compute_krippendorff_alpha(
     )
   }
 
-  let cat_to_idx : Map[String, Int] = {}
+  let cat_to_idx : Map[String, Int] = Map([])
   let mut idx = 0
   for cat in categories {
     cat_to_idx[cat] = idx

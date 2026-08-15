@@ -47,7 +47,7 @@ pub fn run_quality_rules(
   config : RuleConfig,
 ) -> Array[RuleViolation] {
   let output = []
-  let seen : Map[String, Bool] = {}
+  let seen : Map[String, Bool] = Map([])
   for sample in dataset.samples {
     if config.require_unique_ids && seen.contains(sample.id) {
       add_violation(
@@ -88,7 +88,7 @@ pub fn run_quality_rules(
       )
     }
     let labels = sample.extract_category_labels()
-    let allowed : Map[String, Bool] = {}
+    let allowed : Map[String, Bool] = Map([])
     for label in dataset.schema_labels {
       allowed[label] = true
     }
@@ -122,7 +122,7 @@ pub fn blocking_violation_count(violations : Array[RuleViolation]) -> Int {
 ///|
 /// Count violations by rule name for a compact report.
 pub fn violation_counts(violations : Array[RuleViolation]) -> Map[String, Int] {
-  let counts : Map[String, Int] = {}
+  let counts : Map[String, Int] = Map([])
   for violation in violations {
     let current = match counts.get(violation.rule) {
       Some(value) => value

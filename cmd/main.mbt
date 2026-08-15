@@ -11,7 +11,7 @@ fn main {
     Some(path) => {
       let content = @fs.read_file_to_string(path) catch {
         err => {
-          println("Error: cannot read input file `\{path}`: \{to_repr(err)}")
+          println("Error: cannot read input file `\{path}`: \{Repr(err)}")
           return
         }
       }

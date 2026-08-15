@@ -17,8 +17,8 @@ pub fn detect_label_conflicts(
 
   for sample in dataset.samples {
     if sample.annotations.length() > 1 {
-      let ann_map : Map[String, Array[String]] = {}
-      let distinct_set : Map[String, Bool] = {}
+      let ann_map : Map[String, Array[String]] = Map([])
+      let distinct_set : Map[String, Bool] = Map([])
 
       for ann in sample.annotations {
         let labels = match ann.label {

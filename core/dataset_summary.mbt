@@ -12,7 +12,7 @@ pub(all) struct DatasetSummary {
 ///|
 /// Calculate counts without changing the source dataset.
 pub fn summarize_dataset(dataset : Dataset) -> DatasetSummary {
-  let splits : Map[String, Int] = {}
+  let splits : Map[String, Int] = Map([])
   let mut annotation_count = 0
   let mut labeled = 0
   for sample in dataset.samples {

@@ -122,7 +122,7 @@ pub fn Sample::create_sequence(
 ///|
 /// 提取单条样本下的所有分类类别字符串（对单标签/多标签展开去重）
 pub fn Sample::extract_category_labels(self : Sample) -> Array[String] {
-  let res = {}
+  let res = Map([])
   let out = []
   for ann in self.annotations {
     match ann.label {
@@ -180,7 +180,7 @@ pub fn Dataset::filter_by_split(
 ///|
 /// 获取数据集中出现的所有不同标注人员ID列表
 pub fn Dataset::get_all_annotators(self : Dataset) -> Array[String] {
-  let seen = {}
+  let seen = Map([])
   let annotators = []
   for sample in self.samples {
     for ann in sample.annotations {

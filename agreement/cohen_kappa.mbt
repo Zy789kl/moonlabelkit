@@ -43,7 +43,7 @@ pub fn compute_cohen_kappa(
   }
 
   // 构建混淆矩阵类别映射
-  let cat_to_idx : Map[String, Int] = {}
+  let cat_to_idx : Map[String, Int] = Map([])
   let mut idx = 0
   for cat in categories {
     cat_to_idx[cat] = idx

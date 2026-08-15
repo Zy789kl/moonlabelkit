@@ -14,7 +14,7 @@ pub fn detect_schema_and_length_outliers(
   min_length? : Int = 2,
   max_length? : Int = 10000,
 ) -> Array[OutlierReport] {
-  let valid_set : Map[String, Bool] = {}
+  let valid_set : Map[String, Bool] = Map([])
   for lbl in dataset.schema_labels {
     valid_set[lbl] = true
   }

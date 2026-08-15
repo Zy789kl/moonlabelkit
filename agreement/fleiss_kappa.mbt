@@ -21,7 +21,7 @@ pub fn compute_fleiss_kappa(
     )
   }
 
-  let cat_to_idx : Map[String, Int] = {}
+  let cat_to_idx : Map[String, Int] = Map([])
   let mut idx = 0
   for cat in categories {
     cat_to_idx[cat] = idx

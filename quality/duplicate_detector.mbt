@@ -13,7 +13,7 @@ pub fn detect_duplicate_samples(
   dataset : @core.Dataset,
 ) -> Array[DuplicateGroup] {
   // 文本归一化为小写并去首尾空格
-  let text_to_samples : Map[String, Array[@core.Sample]] = {}
+  let text_to_samples : Map[String, Array[@core.Sample]] = Map([])
 
   for sample in dataset.samples {
     let norm = sample.text[:].trim().to_owned()
@@ -32,7 +32,7 @@ pub fn detect_duplicate_samples(
   for norm, samples in text_to_samples {
     if samples.length() > 1 {
       let ids = []
-      let label_set : Map[String, Bool] = {}
+      let label_set : Map[String, Bool] = Map([])
       for s in samples {
         ids.push(s.id)
         for lbl in s.extract_category_labels() {
