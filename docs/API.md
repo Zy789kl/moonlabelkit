@@ -59,21 +59,50 @@ pub fn parse_jsonl_dataset(
   schema_labels : Array[String]
 ) -> @core.Dataset raise @core.GovernanceError
 ```
-- **Error Handling**: Raises `@core.GovernanceError::ParserError(msg, line_no)` if JSON syntax or mandatory fields (`id`, `text`, `label`) are invalid.
+- **Error Handling**: Raises `@core.GovernanceError::ParserError(msg, line_no)` if JSON syntax or mandatory fields (`text`, and `label`/`labels` for classification) are invalid. Missing `id`, `annotator`, and `split` values receive deterministic defaults.
 - **Auto-Merging**: Automatically calls `add_sample_or_merge` to group annotations from different annotators under the same sample ID.
 
 ### `pub fn parse_tabular_dataset(...) -> @core.Dataset raise @core.GovernanceError`
 Parses CSV or TSV tabular strings with customized column header mapping:
 ```mbt
 pub fn parse_tabular_dataset(
-  raw_content : String,
+  content : String,
   dataset_name : String,
-  delimiter~ : Char = ',',
-  id_col~ : String = "id",
-  text_col~ : String = "text",
-  label_col~ : String = "label",
-  annotator_col~ : String = "annotator",
-  split_col~ : String = "split",
-  schema_labels~ : Array[String] = []
+  schema_labels : Array[String],
+  delimiter? : Char = ','
 ) -> @core.Dataset raise @core.GovernanceError
 ```
+
+The parser recognizes `id`, `text`/`content`/`sentence`,
+`label`/`category`/`target`, `annotator`/`annotator_id`, and `split` headers.
+The `id` column is optional (a line-number ID is generated when absent), and
+missing annotator/split columns use `default` and `train` respectively. CSV
+fields may be quoted and may contain the delimiter.
+
+### Command-line input
+
+The executable accepts real files and keeps the library parser API separate
+from filesystem concerns:
+
+```bash
+moon run cmd -- --input examples/sentiment_reviews.jsonl \
+  --format jsonl --schema Positive,Negative,Neutral
+moon run cmd -- --input examples/sentiment_reviews.csv \
+  --format csv --schema Positive,Negative,Neutral
+moon run cmd -- --input examples/ner_entities.jsonl \
+  --format jsonl --task sequence --schema ORG,PROD,LOC,PER
+```
+
+Use `--format auto` (the default for `--input`) to infer JSONL, CSV, or TSV
+from the file suffix. `moon run cmd` without `--input` continues to run the
+deterministic built-in demonstration dataset.
+
+## 3. Statistics (`@stats`)
+
+`compute_label_distribution(dataset)` returns `LabelDistribution`, including
+`shannon_entropy`, `gini_imbalance`, and `max_min_ratio`. Despite the field's
+backwards-compatible name, `gini_imbalance` is the pairwise Gini inequality
+coefficient defined in `docs/THEORY.md`, not Gini impurity.
+
+For sequence JSONL, the parser accepts either `spans: [{...}]` or the common
+`label: [{...}]` span-array convention used by the bundled NER fixture.

@@ -1,6 +1,6 @@
 name = "Zy789kl/moonlabelkit"
 
-version = "0.1.2"
+version = "0.1.3"
 
 readme = "README.md"
 
@@ -13,3 +13,7 @@ keywords = [ "dataset", "label-quality", "kappa", "consistency", "Zy789kl" ]
 description = "标注数据一致性检查与质量治理工具箱 (MoonLabelKit: Annotation Data Consistency Checking & Quality Governance Toolkit)"
 
 preferred_target = "wasm-gc"
+
+import {
+  "moonbitlang/x@0.4.45",
+}

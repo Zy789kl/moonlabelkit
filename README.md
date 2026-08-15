@@ -28,13 +28,24 @@ moon test --target native --deny-warn
 moon build --target wasm-gc
 ```
 
+文件输入 CLI 使用 `moonbitlang/x` 的文件系统适配，项目已锁定兼容当前工具链的版本；执行 `moon update` 后如工具链升级，请重新运行完整 CI 检查。
+
 ## 快速运行
 
 ```bash
 moon run cmd
 ```
 
-命令会加载内置的多标注者情感分类示例，执行分布分析、一致性分析、重复检测、冲突检测和 Schema/长度巡检，并输出 Markdown 报告。序列标注示例位于 `examples/ner_entities.jsonl`；分类示例位于 `examples/sentiment_reviews.jsonl`。
+命令会加载内置的多标注者情感分类示例，执行分布分析、一致性分析、重复检测、冲突检测和 Schema/长度巡检，并输出 Markdown 报告。也可以直接检查真实文件：
+
+```bash
+moon run cmd -- --input examples/sentiment_reviews.jsonl --format jsonl \
+  --schema Positive,Negative,Neutral
+moon run cmd -- --input examples/sentiment_reviews.csv --format csv \
+  --schema Positive,Negative,Neutral
+```
+
+序列标注示例位于 `examples/ner_entities.jsonl`；分类示例位于 `examples/sentiment_reviews.jsonl` 和 `examples/sentiment_reviews.csv`。
 
 ## 包结构
 

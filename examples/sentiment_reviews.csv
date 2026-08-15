@@ -1,0 +1,4 @@
+id,text,label,annotator,split
+csv_001,"Excellent quality and easy to use.",Positive,Alice,train
+csv_002,"The battery failed after one day.",Negative,Bob,train
+csv_003,"An ordinary product with no surprises.",Neutral,Charlie,dev

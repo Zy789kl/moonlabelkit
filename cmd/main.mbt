@@ -1,8 +1,35 @@
 ///|
 /// MoonLabelKit 主程序入口：执行多模态标注数据治理巡检流程并输出报告
 fn main {
+  let args = @env.args()
+  let options = match parse_cli(args) {
+    Some(value) => value
+    None => return
+  }
+
+  match options.input {
+    Some(path) => {
+      let content = @fs.read_file_to_string(path) catch {
+        err => {
+          println("Error: cannot read input file `\{path}`: \{to_repr(err)}")
+          return
+        }
+      }
+      let format = resolve_format(options, path)
+      let dataset = parse_input(content, options, format) catch {
+        err => {
+          println("Error: cannot parse input file `\{path}`: \{err}")
+          return
+        }
+      }
+      println(generate_governance_report(dataset))
+      return
+    }
+    None => ()
+  }
+
   println("==========================================================")
-  println(" 🌌 MoonLabelKit v0.1.0 - Annotation Data Governance Engine ")
+  println(" 🌌 MoonLabelKit v0.1.3 - Annotation Data Governance Engine ")
   println("==========================================================\n")
 
   // 1. 使用 Parser 从 JSONL 文本构建一个真实场景的多标注情感分类数据集

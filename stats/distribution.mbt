@@ -29,7 +29,6 @@ pub fn compute_label_distribution(dataset : @core.Dataset) -> LabelDistribution 
 
   let props : Map[String, Double] = {}
   let mut entropy = 0.0
-  let mut sum_sq = 0.0
   let mut max_cnt = 0
   let mut min_cnt = -1
 
@@ -44,7 +43,6 @@ pub fn compute_label_distribution(dataset : @core.Dataset) -> LabelDistribution 
         let log2_p = @math.ln(p) / ln2
         entropy -= p * log2_p
       }
-      sum_sq += p * p
       if v > max_cnt {
         max_cnt = v
       }
@@ -54,7 +52,25 @@ pub fn compute_label_distribution(dataset : @core.Dataset) -> LabelDistribution 
     }
   }
 
-  let gini = if total > 0 { 1.0 - sum_sq } else { 0.0 }
+  // This is the Gini inequality coefficient, not Gini impurity.
+  // Keeping the pairwise definition makes the reported metric agree with
+  // docs/THEORY.md and keeps 0.0 as the exact value for a balanced dataset.
+  let counts = []
+  for _, count in freq {
+    counts.push(count)
+  }
+  let mut pairwise_difference = 0.0
+  for i = 0; i < counts.length(); i = i + 1 {
+    for j = 0; j < counts.length(); j = j + 1 {
+      pairwise_difference += (counts[i] - counts[j]).abs().to_double()
+    }
+  }
+  let gini = if total > 0 && counts.length() > 0 {
+    pairwise_difference /
+    (2.0 * counts.length().to_double() * total.to_double())
+  } else {
+    0.0
+  }
   let ratio = if min_cnt > 0 {
     max_cnt.to_double() / min_cnt.to_double()
   } else if max_cnt > 0 {

@@ -1,6 +1,7 @@
 _build/
 .repos/
 .moon/
+.mooncakes/
 *.mbti
 .DS_Store
 *.exe

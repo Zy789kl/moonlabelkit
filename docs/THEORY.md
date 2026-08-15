@@ -51,7 +51,7 @@ Quantifies the uncertainty and diversity of the class label distribution across 
 $$H(X) = - \sum_{i=1}^C p_i \log_2(p_i)$$
 Higher entropy indicates a well-balanced dataset where samples are uniformly distributed across classes.
 
-### 2.2 Gini Imbalance Coefficient ($G$)
+### 2.2 Gini Inequality Coefficient ($G$)
 Measures structural inequality across category frequencies:
 $$G = \frac{\sum_{i=1}^C \sum_{j=1}^C |f_i - f_j|}{2 \cdot C \cdot \sum_{i=1}^C f_i}$$
-Where $f_i$ is the absolute count of annotations for class $i$. $G \to 0$ indicates perfect balance, while $G \to 1$ indicates extreme long-tail class imbalance requiring data augmentation.
+Where $f_i$ is the absolute count of annotations for class $i$. This is the pairwise Gini inequality coefficient, not Gini impurity ($1-\sum p_i^2$). $G \to 0$ indicates perfect balance, while larger $G$ indicates stronger long-tail inequality requiring data review or augmentation.

@@ -130,7 +130,13 @@ pub fn parse_sequence_json_line(
         None => default_split
       }
       let spans = []
-      match map.get("spans") {
+      // Accept both the canonical `spans` field and the common dataset
+      // convention used by examples: `label: [{start, end, label, text}]`.
+      let span_value = match map.get("spans") {
+        Some(value) => Some(value)
+        None => map.get("label")
+      }
+      match span_value {
         Some(Array(arr)) =>
           for item in arr {
             match item {
@@ -169,7 +175,7 @@ pub fn parse_sequence_json_line(
           }
         _ =>
           raise @core.GovernanceError::ParserError(
-            "Missing spans array field", line_no,
+            "Missing spans or label span array field", line_no,
           )
       }
       let ann : @core.Annotation = {

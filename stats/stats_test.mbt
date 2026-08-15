@@ -15,12 +15,29 @@ test "label distribution calculation and entropy" {
   let dist = compute_label_distribution(ds)
   inspect(dist.total_annotations, content="4")
   inspect(dist.max_min_ratio, content="1")
+  inspect(dist.gini_imbalance, content="0")
   // 当两种标签 50/50 分布时，二元信息熵正好等于 1.0 bit
   inspect(
     dist.shannon_entropy > 0.99 && dist.shannon_entropy < 1.01,
     content="true",
   )
   inspect(is_severely_imbalanced(dist, threshold=5.0), content="false")
+}
+
+///|
+test "gini inequality uses pairwise frequency differences" {
+  let ds = @core.Dataset::new("gini_uneven", @core.TaskType::Classification, [
+    "A", "B",
+  ])
+  ds.add_sample(@core.Sample::create_simple("1", "t1", "A"))
+  ds.add_sample(@core.Sample::create_simple("2", "t2", "A"))
+  ds.add_sample(@core.Sample::create_simple("3", "t3", "A"))
+  ds.add_sample(@core.Sample::create_simple("4", "t4", "B"))
+  let dist = compute_label_distribution(ds)
+  inspect(
+    dist.gini_imbalance > 0.24 && dist.gini_imbalance < 0.26,
+    content="true",
+  )
 }
 
 ///|

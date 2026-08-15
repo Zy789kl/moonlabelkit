@@ -76,9 +76,9 @@ pub fn generate_html_report(
     "      <p><strong>香农信息熵 (Entropy):</strong> " +
     stats_res.shannon_entropy.to_string() +
     " <em>(熵值越高，类别分布越均匀)</em></p>\n" +
-    "      <p><strong>基尼不平衡系数 (Gini):</strong> " +
+    "      <p><strong>基尼不平等系数 (Gini):</strong> " +
     stats_res.gini_imbalance.to_string() +
-    " <em>(0表示绝对平衡，接近1表示极度长尾失衡)</em></p>\n" +
+    " <em>(0表示绝对平衡，数值越大表示长尾不平等越明显)</em></p>\n" +
     "      <hr/>\n" +
     "      <p><strong>Fleiss' Kappa (&#954;):</strong> " +
     fleiss_res.kappa_score.to_string() +

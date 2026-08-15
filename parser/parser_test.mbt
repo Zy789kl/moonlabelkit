@@ -32,11 +32,25 @@ test "parse jsonl sequence labeling dataset" {
 }
 
 ///|
+test "parse sequence dataset using label span array convention" {
+  let jsonl_seq =
+    #|{"id": "ner_label_1", "text": "OpenAI builds models.", "label": [{"start": 0, "end": 6, "label": "ORG", "text": "OpenAI"}], "annotator": "expert"}
+  let ds = parse_jsonl_dataset(
+    jsonl_seq,
+    "ner_label_dataset",
+    @core.TaskType::SequenceLabeling,
+    ["ORG"],
+  )
+  inspect(ds.samples.length(), content="1")
+  debug_inspect(ds.samples[0].extract_category_labels(), content="[\"ORG\"]")
+}
+
+///|
 test "parse csv tabular dataset" {
   let csv_data =
-    #|id,text,label
-    #|101,Excellent quality,Positive
-    #|102,Bad experience,Negative
+    #|id,text,label,annotator,split
+    #|101,"Excellent quality, very easy to use.",Positive,alice,train
+    #|102,Bad experience,Negative,bob,test
   let ds = parse_tabular_dataset(
     csv_data,
     "tabular_sentiment",
@@ -46,4 +60,6 @@ test "parse csv tabular dataset" {
   inspect(ds.samples.length(), content="2")
   let s2_labels = ds.samples[1].extract_category_labels()
   debug_inspect(s2_labels, content="[\"Negative\"]")
+  inspect(ds.samples[0].annotations[0].annotator_id, content="alice")
+  inspect(ds.samples[1].split, content="test")
 }
